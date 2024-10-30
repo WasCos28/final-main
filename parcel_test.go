@@ -2,7 +2,7 @@ package main
 
 import (
 	"database/sql"
-	"github.com/WasCow28/final-main"
+	"github.com/WasCos28/final-main"
 	"math/rand"
 	"testing"
 	"time"
