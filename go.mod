@@ -1,5 +1,3 @@
-module github.com/WasCos28/final-main
-
 go 1.22.1
 
 require modernc.org/sqlite v1.33.1
