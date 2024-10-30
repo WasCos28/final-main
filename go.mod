@@ -1,4 +1,4 @@
-module github.com/WasCow28/final-main
+module github.com/WasCos28/final-main
 
 go 1.22.1
 
