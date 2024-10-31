@@ -1,11 +1,11 @@
-FROM golang:1.23
+FROM golang:1.22.1
 
 WORKDIR /app
 
-COPY ../final-mains .
+COPY . .
 
 RUN go mod tidy
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /main main.go
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /main.go
 
 CMD ["/main"]

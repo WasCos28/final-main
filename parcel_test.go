@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"github.com/WasCow28/final-main"
 	"math/rand"
 	"testing"
 	"time"
@@ -20,10 +19,10 @@ var (
 )
 
 // getTestParcel возвращает тестовую посылку
-func getTestParcel() final_main.Parcel {
-	return final_main.Parcel{
+func getTestParcel() Parcel {
+	return Parcel{
 		Client:    1000,
-		Status:    final_main.ParcelStatusRegistered,
+		Status:    ParcelStatusRegistered,
 		Address:   "test",
 		CreatedAt: time.Now().UTC().Format(time.RFC3339),
 	}
@@ -37,7 +36,7 @@ func TestAddGetDelete(t *testing.T) {
 		require.NoError(t, err)
 	}
 	defer db.Close()
-	store := final_main.NewParcelStore(db)
+	store := NewParcelStore(db)
 	parcel := getTestParcel()
 
 	// add
@@ -67,7 +66,7 @@ func TestSetAddress(t *testing.T) {
 		require.NoError(t, err)
 	}
 	defer db.Close()
-	store := final_main.NewParcelStore(db)
+	store := NewParcelStore(db)
 	parcel := getTestParcel()
 
 	// add
@@ -97,7 +96,7 @@ func TestSetStatus(t *testing.T) {
 		require.NoError(t, err)
 	}
 	defer db.Close()
-	store := final_main.NewParcelStore(db)
+	store := NewParcelStore(db)
 	parcel := getTestParcel()
 
 	// add
@@ -107,7 +106,7 @@ func TestSetStatus(t *testing.T) {
 	require.NotEmpty(t, parcel.Number)
 
 	// set status
-	err = store.SetStatus(parcel.Number, final_main.ParcelStatusSent)
+	err = store.SetStatus(parcel.Number, ParcelStatusSent)
 
 	require.NoError(t, err)
 
@@ -115,7 +114,7 @@ func TestSetStatus(t *testing.T) {
 	stored, err := store.Get(parcel.Number)
 
 	require.NoError(t, err)
-	require.Equal(t, final_main.ParcelStatusSent, stored.Status)
+	require.Equal(t, ParcelStatusSent, stored.Status)
 }
 
 // TestGetByClient проверяет получение посылок по идентификатору клиента
@@ -126,14 +125,14 @@ func TestGetByClient(t *testing.T) {
 		require.NoError(t, err)
 	}
 	defer db.Close()
-	store := final_main.NewParcelStore(db)
+	store := NewParcelStore(db)
 
-	parcels := []final_main.Parcel{
+	parcels := []Parcel{
 		getTestParcel(),
 		getTestParcel(),
 		getTestParcel(),
 	}
-	parcelMap := map[int]final_main.Parcel{}
+	parcelMap := map[int]Parcel{}
 
 	// задаём всем посылкам одного клиента
 	client := randRange.Intn(10_000_000)
